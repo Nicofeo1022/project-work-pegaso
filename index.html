@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroGreen S.p.A. - Report di Sostenibilità & Trasparenza ESG</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome per Icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #81c784;
+            --dark-color: #1b5e20;
+            --light-bg: #f4f8f4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(27, 94, 32, 0.85), rgba(46, 125, 50, 0.85)), 
+                        url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 40px;
+        }
+
+        .kpi-card {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .report-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
+        }
+
+        .badge-esg {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .btn-download {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .btn-download:hover {
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3"><i class="fa-solid fa-leaf me-2"></i>AgroGreen S.p.A.</h1>
+            <p class="lead mb-4">Informatica e Tecnologia per la Sostenibilità del Settore Primario</p>
+            <p class="w-75 mx-auto">Benvenuti nel nostro portale trasparenza. Qui è possibile consultare e scaricare liberamente tutti i Report di Sostenibilità e i Bilanci ESG della nostra impresa agricola.</p>
+            
+            <!-- KPI SUMMARY -->
+            <div class="row mt-5 g-3">
+                <div class="col-md-4">
+                    <div class="kpi-card">
+                        <h2 class="fw-bold">-38%</h2>
+                        <p class="mb-0">Emissioni CO2 per Ettaro</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card">
+                        <h2 class="fw-bold">100%</h2>
+                        <p class="mb-0">Irrigazione di Precisione (IoT)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kpi-card">
+                        <h2 class="fw-bold">Zero</h2>
+                        <p class="mb-0">Residui Chimici nel Suolo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <!-- FILTRI DI RICERCA -->
+        <section class="filter-section">
+            <h4 class="mb-3 text-success fw-bold"><i class="fa-solid fa-filter me-2"></i>Filtra l'Archivio dei Report</h4>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="selectAnno" class="form-label font-weight-bold">Anno di Riferimento</label>
+                    <select id="selectAnno" class="form-select" onchange="filtraReport()">
+                        <option value="tutti">Tutti gli anni</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="selectTipo" class="form-label font-weight-bold">Tipologia Documento</label>
+                    <select id="selectTipo" class="form-select" onchange="filtraReport()">
+                        <option value="tutti">Tutte le tipologie</option>
+                        <option value="integrato">Report Integrato ESG</option>
+                        <option value="ambientale">Impatto Ambientale e Suolo</option>
+                        <option value="sociale">Responsabilità Sociale & Filiera</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="searchQuery" class="form-label font-weight-bold">Cerca per parola chiave</label>
+                    <input type="text" id="searchQuery" class="form-control" placeholder="Es. Acqua, Bio, CO2..." onkeyup="filtraReport()">
+                </div>
+            </div>
+        </section>
+
+        <!-- GRIGLIA REPORT -->
+        <section>
+            <div class="row g-4" id="gridReport">
+                
+                <!-- CARD REPORT 1 -->
+                <div class="col-md-6 col-lg-4 report-item" data-anno="2025" data-tipo="integrato">
+                    <div class="card report-card p-3">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-esg px-3 py-2 rounded-pill">Anno 2025</span>
+                                <small class="text-muted"><i class="fa-solid fa-file-pdf text-danger me-1"></i>PDF (12.4 MB)</small>
+                            </div>
+                            <h5 class="card-title fw-bold mt-2">Report di Sostenibilità Integrato 2025</h5>
+                            <p class="card-text text-muted flex-grow-1">Rendicontazione completa secondo gli standard GRI 2025. Focus sulla transizione energetica dei macchinari agricoli e sulla gestione idrica smart.</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-outline-success" onclick="mostraDettagli('Report Integrato 2025', 'File certificato con marcatura temporale ISO.')">Dettagli</button>
+                                <a href="#" class="btn btn-download px-3 py-2" onclick="downloadSimulato('Report_Sostenibilita_AgroGreen_2025.pdf')">
+                                    <i class="fa-solid fa-download me-1"></i> Scarica PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD REPORT 2 -->
+                <div class="col-md-6 col-lg-4 report-item" data-anno="2024" data-tipo="ambientale">
+                    <div class="card report-card p-3">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-esg px-3 py-2 rounded-pill">Anno 2024</span>
+                                <small class="text-muted"><i class="fa-solid fa-file-pdf text-danger me-1"></i>PDF (8.1 MB)</small>
+                            </div>
+                            <h5 class="card-title fw-bold mt-2">Bilancio d'Impatto Ambientale & Suolo</h5>
+                            <p class="card-text text-muted flex-grow-1">Analisi della salute dei terreni coltivati, riduzione dei concimi di sintesi del 45% e monitoraggio satellitare delle colture.</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-outline-success" onclick="mostraDettagli('Report Ambientale 2024', 'Contiene mappe di rigenerazione del suolo.')">Dettagli</button>
+                                <a href="#" class="btn btn-download px-3 py-2" onclick="downloadSimulato('Report_Ambientale_2024.pdf')">
+                                    <i class="fa-solid fa-download me-1"></i> Scarica PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD REPORT 3 -->
+                <div class="col-md-6 col-lg-4 report-item" data-anno="2023" data-tipo="sociale">
+                    <div class="card report-card p-3">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-esg px-3 py-2 rounded-pill">Anno 2023</span>
+                                <small class="text-muted"><i class="fa-solid fa-file-pdf text-danger me-1"></i>PDF (9.5 MB)</small>
+                            </div>
+                            <h5 class="card-title fw-bold mt-2">Report Etica & Lavoro nel Settore Primario</h5>
+                            <p class="card-text text-muted flex-grow-1">Analisi delle condizioni di lavoro sul campo, tutela dei lavoratori stagionali e certificazione etica della filiera agroalimentare.</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-outline-success" onclick="mostraDettagli('Report Etica 2023', 'Certificazione SA8000 inclusa.')">Dettagli</button>
+                                <a href="#" class="btn btn-download px-3 py-2" onclick="downloadSimulato('Report_Etica_Lavoro_2023.pdf')">
+                                    <i class="fa-solid fa-download me-1"></i> Scarica PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">AgroGreen S.p.A. - Azienda Agricola Digitale & Sostenibile</p>
+            <small class="text-muted">Elaborato Progettuale Project Work (PW 17) - Corso di Laurea in Informatica per le Aziende Digitali (L-31)</small>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT PER INTERATTIVITÀ -->
+    <script>
+        function filtraReport() {
+            let annoSelezionato = document.getElementById('selectAnno').value;
+            let tipoSelezionato = document.getElementById('selectTipo').value;
+            let queryRicerca = document.getElementById('searchQuery').value.toLowerCase();
+            
+            let cardReport = document.querySelectorAll('.report-item');
+
+            cardReport.forEach(card => {
+                let annoCard = card.getAttribute('data-anno');
+                let tipoCard = card.getAttribute('data-tipo');
+                let testoCard = card.innerText.toLowerCase();
+
+                let corrispondeAnno = (annoSelezionato === 'tutti' || annoCard === annoSelezionato);
+                let corrispondeTipo = (tipoSelezionato === 'tutti' || tipoCard === tipoSelezionato);
+                let corrispondeTesto = (queryRicerca === '' || testoCard.includes(queryRicerca));
+
+                if (corrispondeAnno && corrispondeTipo && corrispondeTesto) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function downloadSimulato(nomeFile) {
+            alert('Avvio del download sicuro del file: ' + nomeFile + '\nGrazie per l\'interesse dimostrato verso la trasparenza di AgroGreen S.p.A.');
+        }
+
+        function mostraDettagli(titolo, info) {
+            alert('Dettagli Documento: ' + titolo + '\nNote tecniche: ' + info);
+        }
+    </script>
+</body>
+</html>
